@@ -5,7 +5,6 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
-using BlogData;
 
 namespace CosmosAuthentication
 {
@@ -36,9 +35,10 @@ namespace CosmosAuthentication
         /// <param name="principal">The current user's <see cref="ClaimsPrincipal"/>.</param>
         /// <returns>The user's <see cref="CosmosToken"/>.</returns>
         [FunctionName("RequestToken")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Need for route trigger.")]
         public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)] 
-                HttpRequest _,
+                HttpRequest req,
             ILogger log,
             ClaimsPrincipal principal)
         {

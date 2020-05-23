@@ -1,4 +1,4 @@
-﻿namespace BlogData
+﻿namespace Common
 {
     /// <summary>
     /// A Cosmos DB ephemeral token.

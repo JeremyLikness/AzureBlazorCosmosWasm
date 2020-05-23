@@ -8,11 +8,6 @@ namespace BlogData
     public class BlogContext : DbContext
     {
         /// <summary>
-        /// Database name.
-        /// </summary>
-        public static readonly string MyBlogs = nameof(MyBlogs).ToLower();
-
-        /// <summary>
         /// The list of <see cref="Blog"/> entities.
         /// </summary>
         public DbSet<Blog> Blogs { get; set; }

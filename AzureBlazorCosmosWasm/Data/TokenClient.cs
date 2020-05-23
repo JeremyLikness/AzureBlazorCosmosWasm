@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using BlogData;
+using Common;
 
 namespace AzureBlazorCosmosWasm.Data
 {

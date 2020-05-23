@@ -1,4 +1,5 @@
 ﻿using BlogData;
+using Common;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
@@ -48,7 +49,7 @@ namespace AzureBlazorCosmosWasm.Data
             var options = new DbContextOptionsBuilder<BlogContext>()
                 .UseCosmos(getCredentials().Endpoint,
                     getCredentials().Key,
-                    BlogContext.MyBlogs,
+                    Context.MyBlogs,
                 opt =>
                  opt.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Gateway));
 
