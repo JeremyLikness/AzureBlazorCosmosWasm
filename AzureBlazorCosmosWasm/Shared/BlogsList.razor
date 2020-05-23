@@ -1,0 +1,32 @@
+﻿@using BlogData
+ 
+@if (Blogs != null)
+{
+    <h1>Blogs</h1>
+    @foreach (var blog in Blogs)
+    {
+        <h2><a href="@blog.Url" target="_blank">@blog.Name</a></h2>
+        <ul>
+            @foreach (var post in blog.Posts)
+            {
+                @if (post.IsActive)
+                {
+                    <li><strong>@post.Title</strong></li>
+                }
+                else
+                {
+                    <li>(inactive) @post.Title</li>
+                }
+            }
+
+        </ul>
+    }
+}
+
+@code {
+    /// <summary>
+    /// The list of <see cref="Blog"/> to render.
+    /// </summary>
+    [Parameter]
+    public List<Blog> Blogs { get; set; }
+}

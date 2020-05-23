@@ -1,0 +1,85 @@
+﻿@page "/cosmos"
+
+@using AzureBlazorCosmosWasm.Data
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.EntityFrameworkCore 
+@using BlogData  
+
+@attribute [Authorize]
+
+@inject BlogClient Client
+
+<h1>Welcome to EF Core and Cosmos DB in a Blazor WebAssembly App!</h1>
+
+@if (FirstTime)
+{
+    <button @onclick="async ()=>await GoAsync()">Let's Try It!</button>
+}
+else
+{
+    <button @onclick="Reset">Reset</button>
+}
+@if (!FirstTime && Blogs == null && string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <p class="alert alert-information">Loading...</p>
+}
+@if (ErrorMessage != null)
+{
+    <p class="alert alert-danger">@ErrorMessage</p>
+}
+@if (Blogs != null)
+{
+    <BlogsList Blogs="Blogs"/>
+}
+
+@code {
+
+    /// <summary>
+    /// If there is an error.
+    /// </summary>
+    public string ErrorMessage;
+
+    /// <summary>
+    /// The list of <see cref="Blog"/>.
+    /// </summary>
+    public List<Blog> Blogs = null;
+
+    /// <summary>
+    /// <c>true</c> to reset to intial state.
+    /// </summary>
+    public bool FirstTime = true;
+
+    /// <summary>
+    /// Start over.
+    /// </summary>
+    protected void Reset()
+    {
+        Blogs = null;
+        FirstTime = true;
+        ErrorMessage = null;
+    }
+
+    /// <summary>
+    /// Grab some <see cref="Blog"/> instances.
+    /// </summary>
+    /// <returns>Asynchronous <see cref="Task"/>.</returns>
+    protected async Task GoAsync()
+    {
+        FirstTime = false;
+        try
+        {
+            using var context = await Client.GetDbContextAsync();
+            Blogs = await context.Blogs.ToListAsync();
+        }
+        catch (AccessTokenNotAvailableException aex)
+        {
+            // authenticate
+            aex.Redirect();
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+}
