@@ -9,6 +9,8 @@ namespace AzureBlazorCosmosWasm.Data
     /// </summary>
     public class CosmosAuthorizationMessageHandler : AuthorizationMessageHandler
     {
+        public string Endpoint { get; set; }
+
         /// <summary>
         /// Creates a new instance of the <see cref="CosmosAuthorizationMessageHandler"/>
         /// class.
@@ -22,9 +24,8 @@ namespace AzureBlazorCosmosWasm.Data
             NavigationManager navigation) : base(provider, navigation)
         {
             var section = config.GetSection(nameof(TokenClient));
-            var endpoint = section.GetValue<string>(nameof(TokenClient.Endpoint));
-            ConfigureHandler(new[] { endpoint });
-
+            Endpoint = section.GetValue<string>(nameof(Endpoint));
+            ConfigureHandler(new[] { Endpoint });
         }
     }
 }

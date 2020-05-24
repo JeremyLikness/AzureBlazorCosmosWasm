@@ -20,7 +20,7 @@ namespace AzureBlazorCosmosWasm
             static string functionEndpoint(WebAssemblyHostBuilder builder) =>
                 builder.Configuration
                     .GetSection(nameof(TokenClient))
-                    .GetValue<string>(nameof(TokenClient.Endpoint));
+                    .GetValue<string>(nameof(CosmosAuthorizationMessageHandler.Endpoint));
 
             // sets up Azure Active Directory authentication and adds the 
             // user_impersonation scope to access functions.
