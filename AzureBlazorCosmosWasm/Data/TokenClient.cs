@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Net.Http;
 using System.Threading.Tasks;
-using BlogData;
 using Common;
 
 namespace AzureBlazorCosmosWasm.Data
@@ -16,11 +15,6 @@ namespace AzureBlazorCosmosWasm.Data
         /// the functions endpoint.
         /// </summary>
         private readonly HttpClient _client;
-
-        /// <summary>
-        /// The endpoint of the functions host.
-        /// </summary>
-        public readonly string Endpoint;
 
         /// <summary>
         /// Creates a new instance of the <see cref="TokenClient"/> class.
